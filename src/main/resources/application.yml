@@ -1,0 +1,18 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: probe
+
+explorer:
+  location:
+    initial:
+      coordinate:
+        x: 5
+        y: 5
+      direction:
+        N
+  grid:
+    max:
+      x: 10
+      y: 10
