@@ -7,11 +7,18 @@ import com.sea.probe.probe.model.Status;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest(properties = {
+        "probe.location.initial.direction = N",
+        "probe.location.initial.coordinate.y = 5",
+        "probe.location.initial.coordinate.x = 5",
+        "probe.grid.max.x = 10",
+        "probe.grid.max.y = 10"
+})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
 class ProbeMotionControlTest {
@@ -22,7 +29,6 @@ class ProbeMotionControlTest {
     @Test
     @Order(1)
     void getCurrentCoordinate() {
-        ProbeMotionControl probeMotionControl = new ProbeMotionControl();
         Coordinate coordinate = probeMotionControl.getCurrentCoordinate();
         assertEquals(5, coordinate.x());
         assertEquals(5, coordinate.y());
@@ -32,6 +38,8 @@ class ProbeMotionControlTest {
     @Test
     @Order(2)
     void moveForwardSuccess() {
+        System.out.println(probeMotionControl.getCurrentCoordinate());
+        System.out.println(probeMotionControl.getCurrentDirection());
         ServiceStatus serviceStatus = probeMotionControl.moveForward(4);
         assertEquals(Status.SUCCESS, serviceStatus.status());
     }

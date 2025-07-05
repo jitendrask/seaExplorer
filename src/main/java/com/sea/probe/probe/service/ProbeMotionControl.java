@@ -15,15 +15,17 @@ import java.util.List;
 public class ProbeMotionControl {
 
     @Value("${probe.grid.max.x}")
+    private Integer maxGridX;
     static int maxX;
-    @Value("${probe.grid.max.x}")
+    @Value("${probe.grid.max.y}")
+    private Integer maxGridY;
     static int maxY;
-    @Value("${explorer.location.initial.coordinate.x}")
+    @Value("${probe.location.initial.coordinate.x}")
     private Integer iniX;
-    @Value("${explorer.location.initial.coordinate.y}")
+    @Value("${probe.location.initial.coordinate.y}")
     private Integer iniY;
     static Coordinate currentCoordinate;
-    @Value("${explorer.location.initial.direction}")
+    @Value("${probe.location.initial.direction}")
     private String stringDirectionValue;
     static Direction currentDirection;
     static List<Coordinate> obstacles = new ArrayList<>();
@@ -32,6 +34,8 @@ public class ProbeMotionControl {
     public void init(){
         currentCoordinate = new Coordinate(iniX,iniY);
         currentDirection = Direction.valueOf(stringDirectionValue);
+        maxX = maxGridX;
+        maxY = maxGridY;
     }
 
     public ServiceStatus moveForward(int value){
